@@ -16,21 +16,27 @@ export default function Home() {
         if (!playerName) return alert('Ponte un nombre, valedor');
         setIsCreating(true);
 
-        // Generate 5-letter code
-        const code = Math.random().toString(36).substring(2, 7).toUpperCase();
+        try {
+            // Generate 5-letter code
+            const code = Math.random().toString(36).substring(2, 7).toUpperCase();
 
-        const { data: room, error } = await supabase
-            .from('rooms')
-            .insert({ code, state: 'LOBBY' })
-            .select()
-            .single();
+            const { data: room, error } = await supabase
+                .from('rooms')
+                .insert({ code, state: 'LOBBY' })
+                .select()
+                .single();
 
-        if (room) {
-            // Store player name in session storage
-            sessionStorage.setItem('playerName', playerName);
-            router.push(`/game/${code}`);
-        } else {
-            console.error(error);
+            if (error) throw error;
+
+            if (room) {
+                // Store player name in session storage
+                sessionStorage.setItem('playerName', playerName);
+                router.push(`/game/${code}`);
+            }
+        } catch (err: any) {
+            console.error('Error al crear sala:', err);
+            alert(`No se pudo crear la sala: ${err.message || 'Error desconocido'}. Revisa tus claves de Supabase.`);
+        } finally {
             setIsCreating(false);
         }
     };
@@ -38,17 +44,24 @@ export default function Home() {
     const joinRoom = async () => {
         if (!playerName || !roomCode) return alert('Llena todo, no seas flojo');
 
-        const { data: room } = await supabase
-            .from('rooms')
-            .select('code')
-            .eq('code', roomCode.toUpperCase())
-            .single();
+        try {
+            const { data: room, error } = await supabase
+                .from('rooms')
+                .select('code')
+                .eq('code', roomCode.toUpperCase())
+                .single();
 
-        if (room) {
-            sessionStorage.setItem('playerName', playerName);
-            router.push(`/game/${room.code}`);
-        } else {
-            alert('Esa sala ni existe, carnal');
+            if (error) throw error;
+
+            if (room) {
+                sessionStorage.setItem('playerName', playerName);
+                router.push(`/game/${room.code}`);
+            } else {
+                alert('Esa sala ni existe, carnal');
+            }
+        } catch (err: any) {
+            console.error('Error al unirse:', err);
+            alert(`No se pudo unir: ${err.message || 'Error desconocido'}`);
         }
     };
 
