@@ -154,90 +154,155 @@ export function useGameState(roomCode: string, playerName?: string) {
     }, [room?.state]);
 
     const startGame = async () => {
-        if (!room || !currentPlayer?.is_host) return;
+        console.log('startGame triggered. Room:', room?.id, 'IsHost:', currentPlayer?.is_host, 'Players count:', players.length);
+        if (!room || !currentPlayer?.is_host) {
+            console.warn('startGame aborted: Room or Host missing');
+            return;
+        }
 
-        const randomBlackCard = _.sample(deckData.blackCards);
-        const randomCzar = _.sample(players);
+        if (players.length < 2) {
+            console.warn('startGame aborted: Not enough players');
+            return;
+        }
 
-        await supabase
-            .from('rooms')
-            .update({
-                state: 'SELECTION',
-                black_card_id: randomBlackCard?.id,
-                czar_id: randomCzar?.id
-            })
-            .eq('id', room.id);
+        try {
+            const randomBlackCard = _.sample(deckData.blackCards);
+            const randomCzar = _.sample(players);
+
+            if (!randomBlackCard || !randomCzar) {
+                console.error('Failed to select random black card or czar');
+                return;
+            }
+
+            console.log('Starting game with BlackCard:', randomBlackCard.id, 'Czar:', randomCzar.name);
+
+            const { error } = await supabase
+                .from('rooms')
+                .update({
+                    state: 'SELECTION',
+                    black_card_id: randomBlackCard?.id,
+                    czar_id: randomCzar?.id
+                })
+                .eq('id', room.id);
+
+            if (error) throw error;
+            console.log('Game started successfully in database');
+        } catch (err) {
+            console.error('Error starting game:', err);
+        }
     };
 
     const selectCard = async (whiteCardIndex: number) => {
-        if (!room || !currentPlayer || room.state !== 'SELECTION' || currentPlayer.id === room.czar_id) return;
+        if (!room || !currentPlayer || room.state !== 'SELECTION' || currentPlayer.id === room.czar_id) {
+            console.warn('selectCard aborted: Invalid state or user is Czar');
+            return;
+        }
 
         // Check if already selected
         const alreadySelected = selections.some(s => s.player_id === currentPlayer.id);
-        if (alreadySelected) return;
+        if (alreadySelected) {
+            console.warn('selectCard aborted: Already selected');
+            return;
+        }
 
-        const selectedCard = hand[whiteCardIndex];
-        const cardId = deckData.whiteCards.indexOf(selectedCard);
+        try {
+            const selectedCard = hand[whiteCardIndex];
+            const cardId = deckData.whiteCards.indexOf(selectedCard);
 
-        await supabase
-            .from('selections')
-            .insert({
-                player_id: currentPlayer.id,
-                room_id: room.id,
-                white_card_id: cardId
-            });
+            console.log('User selecting card:', selectedCard);
 
-        // Remove from hand and replace
-        const newHand = [...hand];
-        newHand.splice(whiteCardIndex, 1, _.sample(deckData.whiteCards)!);
-        setHand(newHand);
+            const { error } = await supabase
+                .from('selections')
+                .insert({
+                    player_id: currentPlayer.id,
+                    room_id: room.id,
+                    white_card_id: cardId
+                });
 
-        // Check if all players (except Czar) have selected
-        const { data: currentPlayers } = await supabase.from('players').select('id').eq('room_id', room.id);
-        const { data: currentSelections } = await supabase.from('selections').select('id').eq('room_id', room.id);
+            if (error) throw error;
 
-        if (currentPlayers && currentSelections && currentSelections.length === currentPlayers.length - 1) {
-            await supabase.from('rooms').update({ state: 'JUDGING' }).eq('id', room.id);
+            // Remove from hand and replace
+            const newHand = [...hand];
+            newHand.splice(whiteCardIndex, 1, _.sample(deckData.whiteCards)!);
+            setHand(newHand);
+
+            // Check if all players (except Czar) have selected
+            const { data: currentPlayers } = await supabase.from('players').select('id').eq('room_id', room.id);
+            const { data: currentSelections } = await supabase.from('selections').select('id').eq('room_id', room.id);
+
+            if (currentPlayers && currentSelections && currentSelections.length === currentPlayers.length - 1) {
+                console.log('All players selected. Moving to JUDGING phase.');
+                await supabase.from('rooms').update({ state: 'JUDGING' }).eq('id', room.id);
+            }
+        } catch (err) {
+            console.error('Error in selectCard:', err);
         }
     };
 
     const pickWinner = async (selectionId: string) => {
-        if (!room || currentPlayer?.id !== room.czar_id || room.state !== 'JUDGING') return;
-
-        const winnerSelection = selections.find(s => s.id === selectionId);
-        if (!winnerSelection) return;
-
-        // Update winner score and room state in a single move for fluidity
-        const { data: winnerPlayer } = await supabase
-            .from('players')
-            .select('score')
-            .eq('id', winnerSelection.player_id)
-            .single();
-
-        if (winnerPlayer) {
-            await supabase
-                .from('players')
-                .update({ score: winnerPlayer.score + 1 })
-                .eq('id', winnerSelection.player_id);
+        if (!room || currentPlayer?.id !== room.czar_id || room.state !== 'JUDGING') {
+            console.warn('pickWinner aborted: Not Czar or not JUDGING phase');
+            return;
         }
 
-        await supabase
-            .from('rooms')
-            .update({
-                state: 'REVEAL',
-                winner_id: winnerSelection.player_id,
-                winning_selection_id: winnerSelection.id
-            })
-            .eq('id', room.id);
+        console.log('Czar picking winner selection:', selectionId);
+
+        try {
+            const winnerSelection = selections.find(s => s.id === selectionId);
+            if (!winnerSelection) {
+                console.error('Winner selection not found locally');
+                return;
+            }
+
+            // Update winner score and room state in a single move for fluidity
+            const { data: winnerPlayer, error: fetchError } = await supabase
+                .from('players')
+                .select('score')
+                .eq('id', winnerSelection.player_id)
+                .single();
+
+            if (fetchError) throw fetchError;
+
+            if (winnerPlayer) {
+                const { error: scoreError } = await supabase
+                    .from('players')
+                    .update({ score: winnerPlayer.score + 1 })
+                    .eq('id', winnerSelection.player_id);
+                if (scoreError) throw scoreError;
+            }
+
+            const { error: roomError } = await supabase
+                .from('rooms')
+                .update({
+                    state: 'REVEAL',
+                    winner_id: winnerSelection.player_id,
+                    winning_selection_id: winnerSelection.id
+                })
+                .eq('id', room.id);
+
+            if (roomError) throw roomError;
+            console.log('Winner picked successfully');
+        } catch (err) {
+            console.error('Error in pickWinner:', err);
+        }
     };
 
     const showScores = async () => {
-        if (!room || currentPlayer?.id !== room.czar_id || room.state !== 'REVEAL') return;
+        if (!room || currentPlayer?.id !== room.czar_id || room.state !== 'REVEAL') {
+            console.warn('showScores aborted: Not Czar or not REVEAL phase');
+            return;
+        }
 
-        await supabase
-            .from('rooms')
-            .update({ state: 'RESULTS' })
-            .eq('id', room.id);
+        try {
+            console.log('Showing scores...');
+            const { error } = await supabase
+                .from('rooms')
+                .update({ state: 'RESULTS' })
+                .eq('id', room.id);
+            if (error) throw error;
+        } catch (err) {
+            console.error('Error in showScores:', err);
+        }
     };
 
     const nextRound = async () => {
