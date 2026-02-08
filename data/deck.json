@@ -1,0 +1,806 @@
+{
+  "blackCards": [
+    {
+      "id": 1,
+      "text": "No mames, ¿qué traes en el fondo de tu mochila?",
+      "pick": 1
+    },
+    {
+      "id": 2,
+      "text": "La nueva propuesta de AMLO: ________ para todos.",
+      "pick": 1
+    },
+    {
+      "id": 3,
+      "text": "Mi mamá me pegó con la chancla por ________.",
+      "pick": 1
+    },
+    {
+      "id": 4,
+      "text": "En el metro Pantitlán huele a ________.",
+      "pick": 1
+    },
+    {
+      "id": 5,
+      "text": "¿Qué es lo más naco que puedes hacer en una boda?",
+      "pick": 1
+    },
+    {
+      "id": 6,
+      "text": "¡Hijo de su ________ mother!",
+      "pick": 1
+    },
+    {
+      "id": 7,
+      "text": "Lo que realmente me da miedo de la CDMX es ________.",
+      "pick": 1
+    },
+    {
+      "id": 8,
+      "text": "Mi abuela dice que para la cruda lo mejor es ________.",
+      "pick": 1
+    },
+    {
+      "id": 9,
+      "text": "¿Qué hay en la maleta de un político mexicano?",
+      "pick": 1
+    },
+    {
+      "id": 10,
+      "text": "El nuevo sabor de tacos de canasta: ________.",
+      "pick": 1
+    },
+    {
+      "id": 11,
+      "text": "Se me olvidó pagar la luz porque estaba ________.",
+      "pick": 1
+    },
+    {
+      "id": 12,
+      "text": "El verdadero tesoro de los aztecas era ________.",
+      "pick": 1
+    },
+    {
+      "id": 13,
+      "text": "¿Qué puso la tía en el grupo de WhatsApp de la familia?",
+      "pick": 1
+    },
+    {
+      "id": 14,
+      "text": "Lo único más difícil que encontrar estacionamiento en Polanco es ________.",
+      "pick": 1
+    },
+    {
+      "id": 15,
+      "text": "Mi ex me dejó por culpa de ________.",
+      "pick": 1
+    },
+    {
+      "id": 16,
+      "text": "¿Qué es lo que realmente le da el sabor a los tacos de 5 por 10?",
+      "pick": 1
+    },
+    {
+      "id": 17,
+      "text": "El Chapo se escapó esta vez usando ________.",
+      "pick": 1
+    },
+    {
+      "id": 18,
+      "text": "En el tianguis puedes encontrar ________ por solo 10 pesitos.",
+      "pick": 1
+    },
+    {
+      "id": 19,
+      "text": "Mi mayor miedo es que me toque ________ en la rosca de reyes.",
+      "pick": 1
+    },
+    {
+      "id": 20,
+      "text": "¿Qué es lo que grita el de los camotes a las 11 de la noche?",
+      "pick": 1
+    },
+    {
+      "id": 21,
+      "text": "Lo que le falta a mi vida es una buena dosis de ________.",
+      "pick": 1
+    },
+    {
+      "id": 22,
+      "text": "¿Qué es lo que dice el viene-viene cuando no hay lugar?",
+      "pick": 1
+    },
+    {
+      "id": 23,
+      "text": "La verdadera razón por la que no ha bajado el dólar es ________.",
+      "pick": 1
+    },
+    {
+      "id": 24,
+      "text": "¿Qué es lo que le pones a los elotes para que queden chingones?",
+      "pick": 1
+    },
+    {
+      "id": 25,
+      "text": "Mi jefe me despidió por andar ________ en horas de oficina.",
+      "pick": 1
+    },
+    {
+      "id": 26,
+      "text": "¿Qué es lo que esconde el Papa Francisco bajo su sotana?",
+      "pick": 1
+    },
+    {
+      "id": 27,
+      "text": "Lo mejor de los XV años de la Kimberly fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 28,
+      "text": "¿Qué es lo que realmente pasa en las juntas de los vecinos?",
+      "pick": 1
+    },
+    {
+      "id": 29,
+      "text": "Mi perro se comió ________ y ahora está bien loco.",
+      "pick": 1
+    },
+    {
+      "id": 30,
+      "text": "Lo que me recetó el doctor para la tristeza fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 31,
+      "text": "¿Qué es lo que hay debajo del Zócalo de la CDMX?",
+      "pick": 1
+    },
+    {
+      "id": 32,
+      "text": "El secreto para un matrimonio feliz según mi tío Beto es ________.",
+      "pick": 1
+    },
+    {
+      "id": 33,
+      "text": "¿Qué es lo que traen los ovnis de Maussan?",
+      "pick": 1
+    },
+    {
+      "id": 34,
+      "text": "Lo que me hace sentir más mexicano que el nopal es ________.",
+      "pick": 1
+    },
+    {
+      "id": 35,
+      "text": "¿Qué es lo que grita la gente en el estadio cuando el portero despeja?",
+      "pick": 1
+    },
+    {
+      "id": 36,
+      "text": "Mi sueño frustrado es ser ________.",
+      "pick": 1
+    },
+    {
+      "id": 37,
+      "text": "¿Qué es lo que le falta a la Selección Mexicana para ganar el mundial?",
+      "pick": 1
+    },
+    {
+      "id": 38,
+      "text": "Lo que me encontré en el baño del antro fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 39,
+      "text": "¿Qué es lo que dice el manual del perfecto chilango?",
+      "pick": 1
+    },
+    {
+      "id": 40,
+      "text": "Mi táctica para ligar en el Tinder es prometer ________.",
+      "pick": 1
+    },
+    {
+      "id": 41,
+      "text": "¿Qué es lo que realmente contiene el refresco de cola?",
+      "pick": 1
+    },
+    {
+      "id": 42,
+      "text": "Lo que me regalaron en el intercambio de la oficina fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 43,
+      "text": "¿Qué es lo que hace que el metro se detenga en medio del túnel?",
+      "pick": 1
+    },
+    {
+      "id": 44,
+      "text": "Mi religión me prohíbe ________.",
+      "pick": 1
+    },
+    {
+      "id": 45,
+      "text": "¿Qué es lo que le pides a la virgencita de Guadalupe?",
+      "pick": 1
+    },
+    {
+      "id": 46,
+      "text": "Lo más fresa que he hecho en mi vida es ________.",
+      "pick": 1
+    },
+    {
+      "id": 47,
+      "text": "¿Qué es lo que hay en el refrigerador de un soltero en la Condesa?",
+      "pick": 1
+    },
+    {
+      "id": 48,
+      "text": "Mi abuelito siempre decía: 'Hijo, nunca te fíes de ________'.",
+      "pick": 1
+    },
+    {
+      "id": 49,
+      "text": "¿Qué es lo que realmente dice la canción de La Chona?",
+      "pick": 1
+    },
+    {
+      "id": 50,
+      "text": "Lo que me pasó en el Acapulcazo fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 51,
+      "text": "¿Qué es lo que tiene la torta cubana que la hace tan especial?",
+      "pick": 1
+    },
+    {
+      "id": 52,
+      "text": "Mi castigo por portarme mal fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 53,
+      "text": "¿Qué es lo que hay en el infierno de los mexicanos?",
+      "pick": 1
+    },
+    {
+      "id": 54,
+      "text": "Lo más surrealista que me ha pasado en la calle fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 55,
+      "text": "¿Qué es lo que realmente significa 'ahorita'?",
+      "pick": 1
+    },
+    {
+      "id": 56,
+      "text": "Mi herencia va a consistir únicamente en ________.",
+      "pick": 1
+    },
+    {
+      "id": 57,
+      "text": "¿Qué es lo que le gritas al vecino que tiene la música a todo volumen?",
+      "pick": 1
+    },
+    {
+      "id": 58,
+      "text": "Lo que me salvó del asalto fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 59,
+      "text": "¿Qué es lo que hay en la panza de un taquero?",
+      "pick": 1
+    },
+    {
+      "id": 60,
+      "text": "Mi mayor talento es ________ después de tres tequilas.",
+      "pick": 1
+    },
+    {
+      "id": 61,
+      "text": "Donde manda capitán, no gobierna ________.",
+      "pick": 1
+    },
+    {
+      "id": 62,
+      "text": "¿Qué es lo que realmente piensan los gringos de nosotros?",
+      "pick": 1
+    },
+    {
+      "id": 63,
+      "text": "Lo que me encontré en el mercado de Sonora fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 64,
+      "text": "¿Qué es lo que dice la letra pequeña del contrato de la CFE?",
+      "pick": 1
+    },
+    {
+      "id": 65,
+      "text": "Mi plan para ganar la lotería es ________.",
+      "pick": 1
+    },
+    {
+      "id": 66,
+      "text": "¿Qué es lo que realmente celebran el 5 de mayo?",
+      "pick": 1
+    },
+    {
+      "id": 67,
+      "text": "Lo que me pasó por andar de ojo alegre fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 68,
+      "text": "¿Qué es lo que hay en el fondo del Lago de Texcoco?",
+      "pick": 1
+    },
+    {
+      "id": 69,
+      "text": "Mi receta secreta para el mole incluye ________.",
+      "pick": 1
+    },
+    {
+      "id": 70,
+      "text": "¿Qué es lo que más extrañan los que se van al gabacho?",
+      "pick": 1
+    },
+    {
+      "id": 71,
+      "text": "Lo que me dijo la vidente de Catemaco fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 72,
+      "text": "¿Qué es lo que realmente contiene el aceite de víbora?",
+      "pick": 1
+    },
+    {
+      "id": 73,
+      "text": "Mi técnica para no pagar la tenencia es ________.",
+      "pick": 1
+    },
+    {
+      "id": 74,
+      "text": "¿Qué es lo que gritas cuando te pegas en el dedo chiquito del pie?",
+      "pick": 1
+    },
+    {
+      "id": 75,
+      "text": "Lo que me trajeron los Reyes Magos fue una porquería: ________.",
+      "pick": 1
+    },
+    {
+      "id": 76,
+      "text": "¿Qué es lo que hay en la oficina de un burócrata?",
+      "pick": 1
+    },
+    {
+      "id": 77,
+      "text": "Mi ex suegra me hizo un amarre con ________.",
+      "pick": 1
+    },
+    {
+      "id": 78,
+      "text": "¿Qué es lo que realmente pasa en los baños de la UNAM?",
+      "pick": 1
+    },
+    {
+      "id": 79,
+      "text": "Lo que me hace llorar más que la cebolla es ________.",
+      "pick": 1
+    },
+    {
+      "id": 80,
+      "text": "¿Qué es lo que dice el letrero en la entrada de Tepito?",
+      "pick": 1
+    },
+    {
+      "id": 81,
+      "text": "Mi fetiche más extraño es ________ con una máscara del Santo.",
+      "pick": 1
+    },
+    {
+      "id": 82,
+      "text": "¿Qué es lo que le falta a mi michelada?",
+      "pick": 1
+    },
+    {
+      "id": 83,
+      "text": "Lo que me pasó por subirme al microbús equivocado fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 84,
+      "text": "¿Qué es lo que hay en el clóset de una tía solterona?",
+      "pick": 1
+    },
+    {
+      "id": 85,
+      "text": "Mi excusa para no ir a trabajar hoy fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 86,
+      "text": "¿Qué es lo que realmente hacen los senadores?",
+      "pick": 1
+    },
+    {
+      "id": 87,
+      "text": "Lo que me encontré en el tamal de dulce fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 88,
+      "text": "¿Qué es lo que grita el vendedor de gas?",
+      "pick": 1
+    },
+    {
+      "id": 89,
+      "text": "Mi superpoder mexicano es ________.",
+      "pick": 1
+    },
+    {
+      "id": 90,
+      "text": "¿Qué es lo que hay en el morral de un mirrey?",
+      "pick": 1
+    },
+    {
+      "id": 91,
+      "text": "Lo que me dijo el policía cuando me paró fue: '________'.",
+      "pick": 1
+    },
+    {
+      "id": 92,
+      "text": "¿Qué es lo que realmente contiene la carne al pastor?",
+      "pick": 1
+    },
+    {
+      "id": 93,
+      "text": "Mi trauma de la infancia es ________.",
+      "pick": 1
+    },
+    {
+      "id": 94,
+      "text": "¿Qué es lo que hay en el cajón de las medicinas de mi casa?",
+      "pick": 1
+    },
+    {
+      "id": 95,
+      "text": "Lo que me pasó por ir a las luchas fue ________.",
+      "pick": 1
+    },
+    {
+      "id": 96,
+      "text": "¿Qué es lo que dice el reglamento del buen borracho?",
+      "pick": 1
+    },
+    {
+      "id": 97,
+      "text": "Mi mayor pecado es ________.",
+      "pick": 1
+    },
+    {
+      "id": 98,
+      "text": "¿Qué es lo que realmente hay en la Isla de las Muñecas?",
+      "pick": 1
+    },
+    {
+      "id": 99,
+      "text": "Lo que me hace sentir más orgulloso de mi colonia es ________.",
+      "pick": 1
+    },
+    {
+      "id": 100,
+      "text": "¿Qué es lo que le preguntarías a Quetzalcóatl?",
+      "pick": 1
+    }
+  ],
+  "whiteCards": [
+    "Un tlacuache rabioso",
+    "La rosa de Guadalupe",
+    "Vender tamales de dudosa procedencia",
+    "Un sticker de Piolín",
+    "La cartilla de vacunación vencida",
+    "Un bolillo para el susto",
+    "Las nalgas de Chayanne",
+    "El pasito perrón",
+    "Un bote de yogurt lleno de frijoles",
+    "La jefa dándote un sape",
+    "Cantar borracho con el mariachi",
+    "Una bolsa de Chetos de 5 pesos",
+    "El Chapo escapando por tercera vez",
+    "Un microbús a toda velocidad",
+    "Salsa de la que pica",
+    "Un Oxxo en cada esquina",
+    "La tanda de la oficina",
+    "Un ritual con ruda y huevo",
+    "El muro de Trump",
+    "Una torta de tamal (guajolota)",
+    "Bailar el payaso de rodeo",
+    "Un político pidiendo el voto",
+    "La bendición de mi abuela",
+    "Un tamal de verde",
+    "El Chicharito llorando",
+    "Una caguama bien fría",
+    "El Cruz Azul cruzazuleándola",
+    "La selección perdiendo en penales",
+    "Un vendedor de colchas San Marcos",
+    "La alerta sísmica a las 3 AM",
+    "Un gringo comiendo chile",
+    "La fila de las tortillas",
+    "Un perro con un suéter de lana",
+    "La música de Los Ángeles Azules",
+    "Un tianguis de paca",
+    "El Dr. Simi bailando",
+    "Una michelada con gomitas",
+    "El Canelo Álvarez",
+    "La Virgencita me lo cumplió",
+    "Una mordida pal poli",
+    "El gas Bienestar",
+    "Un elote con harto chile del que pica",
+    "La señora de los esquites",
+    "Un mazapán que se deshace",
+    "La piñata de Donald Trump",
+    "Un microbusero con prisa",
+    "La mañanera de AMLO",
+    "Un pozole con mucha lechuga",
+    "La calor de Monterrey",
+    "Un chilango en la playa",
+    "El buscador de niños de la lotería",
+    "Un tlacuache Godín",
+    "La combi al Estado de México",
+    "Un asalto en el micro",
+    "La chancla voladora",
+    "Un sticker de 'No subo gordas'",
+    "La virgencita de Soriana",
+    "Un borracho dormido en la calle",
+    "La paca de ropa de 5 pesos",
+    "Un esquite con tuétano",
+    "La música de banda a todo volumen",
+    "Un quinceañera con vestido gigante",
+    "La tía que pregunta '¿y el novio?'",
+    "Un político con maletín de dinero",
+    "El Chapulín Colorado",
+    "Una torta ahogada",
+    "El picante que no pica nada",
+    "Un mariachi desafinado",
+    "El Himno Nacional Mexicano",
+    "La Independencia de México",
+    "Un nopal en la frente",
+    "La cara de la maestra",
+    "Un examen de la SEP",
+    "La tarjeta del Bienestar",
+    "Un boleto del metro",
+    "La fila del IMSS",
+    "Un consultorio de farmacia Simi",
+    "El jabón Zote",
+    "Una cobija de tigre",
+    "El pan de muerto",
+    "La calaverita literaria",
+    "Un altar de muertos",
+    "El tequila reposado",
+    "Un mezcal con gusano",
+    "La cumbia de los pajaritos",
+    "El son de la negra",
+    "Un huarache de asada",
+    "La quesadilla sin queso",
+    "Un bolillo caliente",
+    "La torta de chilaquiles",
+    "El atole de guayaba",
+    "Un café de olla",
+    "La rosca de reyes con 10 muñequitos",
+    "El tamal de dulce",
+    "Una jicaleta",
+    "El algodón de azúcar",
+    "Un globo de helio",
+    "El organillero de la CDMX",
+    "Un mimo del centro histórico",
+    "La estatua viviente",
+    "El metrobus lleno",
+    "Una tarjeta de movilidad integrada",
+    "Un puesto de revistas",
+    "La piratería de Tepito",
+    "Un disco de 2gb de música",
+    "La película de Pedro Infante",
+    "El luchador El Santo",
+    "La máscara de Blue Demon",
+    "Una llave de lucha libre",
+    "El cuadrilátero sagrado",
+    "Un grito de '¡Lucharán a dos de tres caídas!'",
+    "La arena México",
+    "Un taco de ojo",
+    "La mirada de Zapata",
+    "El bigote de Villa",
+    "La Adelita",
+    "Un rifle de madera",
+    "La Revolución Mexicana",
+    "El grito de Dolores",
+    "La campana de la libertad",
+    "Un pozole rojo",
+    "La crema de rancho",
+    "Un queso Oaxaca",
+    "El quesillo",
+    "Una tlayuda gigante",
+    "El mole de San Pedro",
+    "Un insecto comestible",
+    "Los chapulines asados",
+    "El gusano de maguey",
+    "Un pulque curado",
+    "La jarra de agua de horchata",
+    "El agua de jamaica",
+    "Un limón partido",
+    "La sal de grano",
+    "Un pedazo de chicharrón",
+    "La piel dorada de Luis Miguel",
+    "El sol de México",
+    "Una serenata nocturna",
+    "El balcón de la amada",
+    "Un ramo de flores marchitas",
+    "La decepción amorosa",
+    "El 'te lo dije'",
+    "La maldición de la Malinche",
+    "Un tesoro enterrado",
+    "La pirámide del sol",
+    "El calendario azteca",
+    "Un sacrificio humano",
+    "El corazón palpitante",
+    "Una obsidiana afilada",
+    "El penacho de Moctezuma",
+    "La devolución del penacho",
+    "Un gachupín confundido",
+    "La conquista de México",
+    "El encuentro de dos mundos",
+    "Un mestizaje sabroso",
+    "La identidad nacional",
+    "El orgullo de ser mexicano",
+    "Un 'viva México cabrones'",
+    "El grito en el Zócalo",
+    "La bandera tricolor",
+    "El águila devorando una serpiente",
+    "Un nopal solitario",
+    "La piedra de los sacrificios",
+    "Un cenote sagrado",
+    "El agua cristalina",
+    "Una playa de Cancún",
+    "El sargazo en la orilla",
+    "Un turista quemado",
+    "La propina obligatoria",
+    "Un guía de turistas mentiroso",
+    "La historia inventada",
+    "El mural de Diego Rivera",
+    "La ceja de Frida Kahlo",
+    "Un autorretrato triste",
+    "La casa azul",
+    "Un xoloitzcuintle sin pelo",
+    "El perro de los muertos",
+    "Un camino de cempasúchil",
+    "La luz de las velas",
+    "El olor a incienso",
+    "Un pan de dulce",
+    "La concha de chocolate",
+    "La oreja de hojaldre",
+    "Un bigote de canela",
+    "El polvorón de nuez",
+    "La galleta de animalitos",
+    "Un café con leche",
+    "El chocolate de la abuela",
+    "Un molinillo de madera",
+    "La espuma del chocolate",
+    "Un jarrito de barro",
+    "La cocina de humo",
+    "Un fogón encendido",
+    "La tortilla hecha a mano",
+    "El comal de barro",
+    "Un metate de piedra",
+    "La molienda del maíz",
+    "El nixtamal",
+    "Un saco de cal",
+    "La construcción de la barda",
+    "Un albañil con talento",
+    "La mezcla de cemento",
+    "Un maestro de obra caguamero",
+    "La cumbia en la obra",
+    "Un radio de pilas",
+    "La noticia de última hora",
+    "Un periódico amarillista",
+    "La nota roja",
+    "Un crimen pasional",
+    "La traición de un amigo",
+    "El compadre de confianza",
+    "Un ahijado malagradecido",
+    "La fiesta del pueblo",
+    "La feria del caballo",
+    "Un palenque de gallos",
+    "La apuesta perdida",
+    "Un gallo de pelea",
+    "La espuela de plata",
+    "Un jinete sin cabeza",
+    "La leyenda de la Llorona",
+    "El grito de '¡Ay mis hijos!'",
+    "Un callejón oscuro",
+    "La mano peluda",
+    "Un espanto nocturno",
+    "La bruja de la colonia",
+    "Un gato negro",
+    "La mala suerte",
+    "El trébol de cuatro hojas",
+    "Un amuleto de suerte",
+    "La pata de conejo",
+    "Un herraje en la puerta",
+    "La protección divina",
+    "Un escapulario bendito",
+    "La medallita milagrosa",
+    "Un rosario de cuentas",
+    "La misa de domingo",
+    "El sermón del cura",
+    "Una canasta de limosna",
+    "El diezmo obligatorio",
+    "La fe inquebrantable",
+    "Un milagro de la virgen",
+    "La manda cumplida",
+    "Un camino de rodillas",
+    "La penitencia dolorosa",
+    "Un perdón difícil",
+    "La reconciliación familiar",
+    "El abrazo de oso",
+    "Un beso en la mejilla",
+    "La caricia sincera",
+    "Un amor prohibido",
+    "La pasión desbordada",
+    "Un romance de telenovela",
+    "La villana de la historia",
+    "El cachetazo de impacto",
+    "Un '¡Maldita lisiada!'",
+    "La actuación exagerada",
+    "Un final feliz",
+    "La boda de ensueño",
+    "El vestido blanco",
+    "Un pastel de cinco pisos",
+    "La marcha nupcial",
+    "El brindis con sidra",
+    "Un discurso aburrido",
+    "La víbora de la mar",
+    "El lanzamiento del ramo",
+    "Un codazo en la cara",
+    "La pelea por el centro de mesa",
+    "Un recuerdo de la fiesta",
+    "La bolsita con dulces",
+    "Un aguinaldo navideño",
+    "La piñata de siete picos",
+    "Un palo de escoba",
+    "Los ojos vendados",
+    "El '¡Dale, dale, dale!'",
+    "Una lluvia de frutas",
+    "El cacahuate rancio",
+    "Un colación de colores",
+    "La cena de Navidad",
+    "El pavo relleno",
+    "Un romeritos con mole",
+    "El bacalao a la vizcaína",
+    "Una ensalada de manzana",
+    "El ponche caliente",
+    "Un tejocote duro",
+    "La caña de azúcar",
+    "Un brindis de año nuevo",
+    "Las doce uvas",
+    "Un deseo incumplido",
+    "La maleta vacía",
+    "Un calzón rojo",
+    "La suerte en el amor",
+    "Un viaje inesperado",
+    "La maleta en la esquina",
+    "Un boleto de avión",
+    "La despedida en el aeropuerto",
+    "Un llanto desconsolado",
+    "El 'te voy a extrañar'",
+    "La promesa de volver",
+    "Un país lejano",
+    "La nostalgia del hogar"
+  ]
+}
