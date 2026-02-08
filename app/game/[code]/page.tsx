@@ -33,6 +33,7 @@ export default function GameRoom() {
         startGame,
         selectCard,
         pickWinner,
+        showScores,
         nextRound
     } = useGameState(code as string, playerName || undefined);
 
@@ -78,13 +79,15 @@ export default function GameRoom() {
                         />
                     )}
 
-                    {room.state === 'RESULTS' && (
+                    {(room.state === 'REVEAL' || room.state === 'RESULTS') && (
                         <Results
+                            room={room}
                             players={players}
                             selections={selections}
                             blackCard={blackCard}
                             currentPlayer={currentPlayer}
                             onNextRound={nextRound}
+                            onShowScores={showScores}
                         />
                     )}
                 </motion.div>

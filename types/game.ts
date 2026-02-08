@@ -1,4 +1,4 @@
-export type GameState = 'LOBBY' | 'SELECTION' | 'JUDGING' | 'RESULTS';
+export type GameState = 'LOBBY' | 'SELECTION' | 'JUDGING' | 'REVEAL' | 'RESULTS';
 
 export interface Room {
   id: string;
@@ -6,6 +6,8 @@ export interface Room {
   state: GameState;
   czar_id: string | null;
   black_card_id: number | null;
+  winner_id: string | null;
+  winning_selection_id: string | null;
 }
 
 export interface Player {

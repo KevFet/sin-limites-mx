@@ -22,7 +22,7 @@ export default function Home() {
     });
 
     const createRoom = async () => {
-        if (!playerName) return alert('Ponte un nombre, valedor');
+        if (!playerName.trim()) return alert('¡Ponte un apodo primero, valedor!');
         setIsCreating(true);
 
         try {
@@ -44,14 +44,18 @@ export default function Home() {
             }
         } catch (err: any) {
             console.error('Error al crear sala:', err);
-            alert(`No se pudo crear la sala: ${err.message || 'Error desconocido'}. Revisa tus claves de Supabase.`);
+            alert(`No se pudo crear la sala: ${err.message || 'Error desconocido'}. Revisa que Supabase esté bien configurado.`);
         } finally {
             setIsCreating(false);
         }
     };
 
     const joinRoom = async () => {
-        if (!playerName || !roomCode) return alert('Llena todo, no seas flojo');
+        if (!playerName.trim() && !roomCode.trim()) {
+            return alert('Faltan datos: Escribe tu nombre y el código de la sala');
+        }
+        if (!playerName.trim()) return alert('Primero ponte un nombre para que te reconozcan');
+        if (!roomCode.trim()) return alert('Escribe el código de la sala a la que te quieres meter');
 
         try {
             const { data: room, error } = await supabase
@@ -66,11 +70,11 @@ export default function Home() {
                 sessionStorage.setItem('playerName', playerName);
                 router.push(`/game/${room.code}`);
             } else {
-                alert('Esa sala ni existe, carnal');
+                alert('Esa sala no existe, carnal. Checa bien el código.');
             }
         } catch (err: any) {
             console.error('Error al unirse:', err);
-            alert(`No se pudo unir: ${err.message || 'Error desconocido'}`);
+            alert(`No se pudo entrar: ${err.message || 'Error desconocido'}`);
         }
     };
 

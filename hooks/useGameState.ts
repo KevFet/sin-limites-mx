@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase } from '@/utils/supabase';
 import { Room, Player, Selection, GameState, BlackCard } from '@/types/game';
 import deckData from '@/data/deck.json';
@@ -9,11 +9,15 @@ import _ from 'lodash';
 export function useGameState(roomCode: string, playerName?: string) {
     const [room, setRoom] = useState<Room | null>(null);
     const [players, setPlayers] = useState<Player[]>([]);
-    const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
     const [selections, setSelections] = useState<Selection[]>([]);
     const [hand, setHand] = useState<string[]>([]);
     const [blackCard, setBlackCard] = useState<BlackCard | null>(null);
     const [loading, setLoading] = useState(true);
+
+    // Derive current player from players list to ensure real-time score updates
+    const currentPlayer = useMemo(() => {
+        return players.find(p => p.name === playerName) || null;
+    }, [players, playerName]);
 
     // Initialize hand
     useEffect(() => {
@@ -50,23 +54,16 @@ export function useGameState(roomCode: string, playerName?: string) {
 
             if (selectionsData) setSelections(selectionsData);
 
-            if (playerName) {
-                const existingPlayer = playersData?.find(p => p.name === playerName);
-                if (existingPlayer) {
-                    setCurrentPlayer(existingPlayer);
-                } else {
-                    // Join room logic
-                    const { data: newPlayer } = await supabase
-                        .from('players')
-                        .insert({
-                            name: playerName,
-                            room_id: roomData.id,
-                            is_host: playersData?.length === 0
-                        })
-                        .select()
-                        .single();
-                    if (newPlayer) setCurrentPlayer(newPlayer);
-                }
+            if (playerName && !playersData?.some(p => p.name === playerName)) {
+                // Join room logic only if not already in list
+                await supabase
+                    .from('players')
+                    .insert({
+                        name: playerName,
+                        room_id: roomData.id,
+                        is_host: playersData?.length === 0
+                    });
+                // The subscription will pick up the new player and update 'players' state
             }
         }
         setLoading(false);
@@ -74,29 +71,87 @@ export function useGameState(roomCode: string, playerName?: string) {
 
     useEffect(() => {
         fetchState();
+    }, [fetchState]);
+
+    useEffect(() => {
+        if (!room?.id) return;
 
         const roomSubscription = supabase
-            .channel('room-changes')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'rooms', filter: `code=eq.${roomCode}` }, (payload) => {
-                const newRoom = payload.new as Room;
-                setRoom(newRoom);
-                if (newRoom.black_card_id) {
-                    setBlackCard(deckData.blackCards.find(c => c.id === newRoom.black_card_id) || null);
+            .channel(`game:${roomCode}`)
+            .on(
+                'postgres_changes',
+                { event: '*', schema: 'public', table: 'rooms', filter: `id=eq.${room.id}` },
+                (payload) => {
+                    if (payload.new) {
+                        const newRoom = payload.new as Room;
+                        setRoom(newRoom);
+                        if (newRoom.black_card_id) {
+                            setBlackCard(deckData.blackCards.find(c => c.id === newRoom.black_card_id) || null);
+                        }
+                        // Aggressive fetch for consistency when room itself changes
+                        fetchState();
+                    }
                 }
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'players' }, () => {
-                // Simple refresh for now
-                fetchState();
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'selections' }, () => {
-                fetchState();
-            })
-            .subscribe();
+            )
+            .on(
+                'postgres_changes',
+                { event: '*', schema: 'public', table: 'players', filter: `room_id=eq.${room.id}` },
+                (payload) => {
+                    if (payload.eventType === 'INSERT') {
+                        setPlayers(prev => [...prev.filter(p => p.id !== payload.new.id), payload.new as Player]);
+                    } else if (payload.eventType === 'UPDATE') {
+                        setPlayers(prev => prev.map(p => p.id === payload.new.id ? payload.new as Player : p));
+                    } else if (payload.eventType === 'DELETE') {
+                        setPlayers(prev => {
+                            const newPlayers = prev.filter(p => p.id !== payload.old.id);
+                            // Host migration: if previous host left, assign new one
+                            if (newPlayers.length > 0 && !newPlayers.some(p => p.is_host)) {
+                                const nextHostId = newPlayers[0].id;
+                                supabase.from('players').update({ is_host: true }).eq('id', nextHostId).then();
+                            }
+                            return newPlayers;
+                        });
+                    }
+                }
+            )
+            .on(
+                'postgres_changes',
+                { event: '*', schema: 'public', table: 'selections', filter: `room_id=eq.${room.id}` },
+                (payload) => {
+                    if (payload.eventType === 'INSERT') {
+                        setSelections(prev => [...prev.filter(s => s.id !== payload.new.id), payload.new as Selection]);
+                    } else if (payload.eventType === 'UPDATE') {
+                        setSelections(prev => prev.map(s => s.id === payload.new.id ? payload.new as Selection : s));
+                    } else if (payload.eventType === 'DELETE') {
+                        if (payload.old && payload.old.id) {
+                            setSelections(prev => prev.filter(s => s.id !== payload.old.id));
+                        } else {
+                            fetchState();
+                        }
+                    }
+                }
+            )
+            .subscribe((status) => {
+                if (status === 'SUBSCRIBED') {
+                    console.log('Realtime synced for room:', roomCode);
+                    // Resolve loading only once we have room and players
+                    if (room && (!playerName || players.some(p => p.name === playerName))) {
+                        setLoading(false);
+                    }
+                }
+            });
 
         return () => {
             supabase.removeChannel(roomSubscription);
         };
-    }, [roomCode, fetchState]);
+    }, [roomCode, room?.id, fetchState]);
+
+    // Force local reset when state changes to SELECTION to ensure "automatic reload" feel
+    useEffect(() => {
+        if (room?.state === 'SELECTION') {
+            setSelections([]);
+        }
+    }, [room?.state]);
 
     const startGame = async () => {
         if (!room || !currentPlayer?.is_host) return;
@@ -152,7 +207,7 @@ export function useGameState(roomCode: string, playerName?: string) {
         const winnerSelection = selections.find(s => s.id === selectionId);
         if (!winnerSelection) return;
 
-        // Update winner score
+        // Update winner score and room state in a single move for fluidity
         const { data: winnerPlayer } = await supabase
             .from('players')
             .select('score')
@@ -166,30 +221,68 @@ export function useGameState(roomCode: string, playerName?: string) {
                 .eq('id', winnerSelection.player_id);
         }
 
-        await supabase.from('rooms').update({ state: 'RESULTS' }).eq('id', room.id);
-    };
-
-    const nextRound = async () => {
-        if (!room || !currentPlayer?.is_host) return;
-
-        // Delete selections
-        await supabase.from('selections').delete().eq('room_id', room.id);
-
-        // New black card
-        const randomBlackCard = _.sample(deckData.blackCards);
-
-        // Rotate Czar
-        const currentIndex = players.findIndex(p => p.id === room.czar_id);
-        const nextCzar = players[(currentIndex + 1) % players.length];
-
         await supabase
             .from('rooms')
             .update({
-                state: 'SELECTION',
-                black_card_id: randomBlackCard?.id,
-                czar_id: nextCzar.id
+                state: 'REVEAL',
+                winner_id: winnerSelection.player_id,
+                winning_selection_id: winnerSelection.id
             })
             .eq('id', room.id);
+    };
+
+    const showScores = async () => {
+        if (!room || currentPlayer?.id !== room.czar_id || room.state !== 'REVEAL') return;
+
+        await supabase
+            .from('rooms')
+            .update({ state: 'RESULTS' })
+            .eq('id', room.id);
+    };
+
+    const nextRound = async () => {
+        const isCzar = currentPlayer?.id === room?.czar_id;
+        if (!room || (!currentPlayer?.is_host && !isCzar)) return;
+
+        try {
+            // 1. Delete selections for new round first
+            await supabase.from('selections').delete().eq('room_id', room.id);
+
+            // 2. Fetch latest players to ensure rotation is accurate
+            const { data: latestPlayers } = await supabase
+                .from('players')
+                .select('*')
+                .eq('room_id', room.id);
+
+            const currentPlayersList = (latestPlayers && latestPlayers.length > 0) ? latestPlayers : players;
+
+            if (currentPlayersList.length === 0) return;
+
+            // 3. Rotate Czar
+            const currentIndex = currentPlayersList.findIndex(p => p.id === room.czar_id);
+            const nextCzarIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % currentPlayersList.length;
+            const nextCzar = currentPlayersList[nextCzarIndex];
+
+            // 4. New black card
+            const randomBlackCard = _.sample(deckData.blackCards);
+
+            // 5. Update room
+            await supabase
+                .from('rooms')
+                .update({
+                    state: 'SELECTION',
+                    black_card_id: randomBlackCard?.id,
+                    czar_id: nextCzar.id,
+                    winner_id: null,
+                    winning_selection_id: null
+                })
+                .eq('id', room.id);
+
+            // The room update will trigger a state change to SELECTION,
+            // which in turn triggers the clear selections useEffect for everyone.
+        } catch (error) {
+            console.error('Error in nextRound:', error);
+        }
     };
 
     return {
@@ -203,6 +296,7 @@ export function useGameState(roomCode: string, playerName?: string) {
         startGame,
         selectCard,
         pickWinner,
+        showScores,
         nextRound
     };
 }
