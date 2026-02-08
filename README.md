@@ -14,7 +14,7 @@ Para desplegar este proyecto en Vercel, necesitas configurar las siguientes vari
 | Variable | Descripción |
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | La URL de tu proyecto en Supabase. |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | La API key (anon) de tu proyecto en Supabase. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt4a2FxZW9xZmlucWt2ZWtjZXFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjI2NjgsImV4cCI6MjA4NjEzODY2OH0.hrqVGejQG2krKoFsB9HOqW9BDuNKfoUeo32Wqr9WldE` |
 
 ### Pasos para el Deployment
 1. Crea un proyecto en [Supabase](https://supabase.com).

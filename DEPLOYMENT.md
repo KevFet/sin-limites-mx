@@ -23,7 +23,7 @@ En el paso de "Configure Project" en Vercel, busca la sección **Environment Var
 | Key | Value |
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://kxkaqeoqfinqkvekceqo.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `sb_publishable_tdfG3B-b8i6FviciOotw0A_-WuCvG5X` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...hrqVGejQG2krKoFsB9HOqW9BDuNKfoUeo32Wqr9WldE` (USA LA CLAVE LARGA QUE TE PASÉ) |
 
 ### 4. ¡Despliega!
 Haz clic en **"Deploy"**. Vercel compilará la aplicación y te dará una URL (ej: `sin-limites-mx.vercel.app`) donde ya podrás jugar con tus amigos desde cualquier celular.
