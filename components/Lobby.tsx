@@ -12,7 +12,7 @@ interface LobbyProps {
 }
 
 export function Lobby({ room, players, currentPlayer, onStart }: LobbyProps) {
-    const inviteUrl = typeof window !== 'undefined' ? `${window.location.origin}/join/${room.code}` : '';
+    const inviteUrl = typeof window !== 'undefined' ? `${window.location.origin}/?code=${room.code}` : '';
 
     const copyInvite = () => {
         navigator.clipboard.writeText(inviteUrl);
@@ -68,8 +68,8 @@ export function Lobby({ room, players, currentPlayer, onStart }: LobbyProps) {
                         <div
                             key={p.id}
                             className={`flex items-center justify-between p-4 rounded-xl border ${p.id === currentPlayer?.id
-                                    ? 'bg-zinc-800/80 border-zinc-600 ring-1 ring-zinc-500'
-                                    : 'bg-zinc-900/40 border-zinc-800'
+                                ? 'bg-zinc-800/80 border-zinc-600 ring-1 ring-zinc-500'
+                                : 'bg-zinc-900/40 border-zinc-800'
                                 }`}
                         >
                             <div className="flex items-center gap-3">
@@ -89,10 +89,10 @@ export function Lobby({ room, players, currentPlayer, onStart }: LobbyProps) {
             {currentPlayer?.is_host && (
                 <button
                     onClick={onStart}
-                    disabled={players.length < 3}
+                    disabled={players.length < 2}
                     className="w-full max-w-sm bg-white hover:bg-zinc-200 text-black font-black py-4 rounded-2xl transition-all active:scale-95 disabled:opacity-50 disabled:grayscale"
                 >
-                    {players.length < 3 ? 'FALTAN JUGADORES (MÍN. 3)' : '¡DALE PLAY!'}
+                    {players.length < 2 ? 'FALTAN JUGADORES (MÍN. 2)' : '¡DALE PLAY!'}
                 </button>
             )}
         </div>

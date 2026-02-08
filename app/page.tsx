@@ -12,6 +12,15 @@ export default function Home() {
     const [isCreating, setIsCreating] = useState(false);
     const router = useRouter();
 
+    // Auto-fill room code from URL
+    useState(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            if (code) setRoomCode(code.toUpperCase());
+        }
+    });
+
     const createRoom = async () => {
         if (!playerName) return alert('Ponte un nombre, valedor');
         setIsCreating(true);
